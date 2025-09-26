@@ -1,0 +1,17 @@
+{% load livecomponents %}
+
+<div {% component_attrs component_id %}>
+    <div class="mb-8 space-y-4">
+        <div>
+            {% livecomponent "search" parent_id=component_id search=search_query %}
+        </div>
+        <div>
+            {% livecomponent "create" parent_id=component_id own_id="create" %}
+        </div>
+    </div>
+    <div class="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {% for property in properties %}
+        {% livecomponent "card" parent_id=component_id property=property own_id=property.id %}
+        {% endfor %}
+    </div>
+</div>

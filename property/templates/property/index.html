@@ -1,0 +1,22 @@
+{% extends "property/base.html" %}
+
+{% block content %}
+<div class="min-h-screen">
+    <header class="bg-white shadow-sm">
+        <div class="mx-auto max-w-6xl px-6 py-10">
+            <span class="text-sm uppercase tracking-[0.3em] text-slate-400">Your Properties</span>
+            <h1 class="mt-3 text-4xl font-semibold text-slate-900">All Your Properties</h1>
+            <p class="mt-4 max-w-2xl text-lg text-slate-600">
+                The list below shows all your properties.
+            </p>
+        </div>
+    </header>
+
+
+    {% load livecomponents %}
+    <section class="mx-auto max-w-6xl px-6 py-12">
+        {% livecomponent "grid" %}
+    </section>
+</div>
+
+{% endblock %}

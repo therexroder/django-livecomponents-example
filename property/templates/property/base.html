@@ -1,0 +1,41 @@
+{% load static component_tags django_htmx livecomponents %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block title %}<title>Property Listings</title>{% endblock %}
+
+    <meta name="htmx-config" content='{"defaultSwapStyle":"none","allowNestedOobSwaps":false}'>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@2.x.x"></script>
+    <script src="https://unpkg.com/htmx-ext-json-enc@2.x.x/json-enc.js"></script>
+    <script src="https://unpkg.com/htmx-ext-alpine-morph@2.x.x/alpine-morph.js"></script>
+    <script defer src="https://unpkg.com/@alpinejs/morph@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    {% django_htmx_script %}
+    {% component_css_dependencies %}
+    {% livecomponents_session_id as LIVECOMPONENTS_SESSION_ID %}
+
+    <script>
+        const fetchUrl = "{% url 'livecomponents:clear-session' %}?session_id={{ LIVECOMPONENTS_SESSION_ID }}";
+        const csrfmiddlewaretoken = "{{ csrf_token }}";
+        window.addEventListener("beforeunload", function () {
+            navigator.sendBeacon(fetchUrl, new URLSearchParams({csrfmiddlewaretoken}))
+        });
+    </script>
+
+    {% block head_extra %}{% endblock %}
+</head>
+<body class="bg-slate-100 text-slate-900 font-sans antialiased" hx-ext="alpine-morph, json-enc" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    {% block content %}{% endblock %}
+
+    {% component_js_dependencies %}
+    {% block scripts %}{% endblock %}
+</body>
+</html>
+

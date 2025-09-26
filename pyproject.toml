@@ -1,0 +1,15 @@
+[project]
+name = "bewerbung"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django>=5.2.6",
+    "livecomponents",
+    "pillow",
+    "requests>=2.32.5",
+]
+
+[tool.uv.sources]
+livecomponents = { git = "https://github.com/om-proptech/livecomponents.git" }
